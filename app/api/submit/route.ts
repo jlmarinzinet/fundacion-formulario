@@ -1,5 +1,5 @@
 const WEBHOOK_URL =
-  "https://n8n.zinetmedia.es/webhook-test/fundacion-contenidos";
+  "https://n8n.zinetmedia.es/webhook/fundacion-contenidos";
 const AUTH_HEADER = "fundacion-contenidos2026";
 const AUTH_HEADER_FALLBACK = "fundacion";
 

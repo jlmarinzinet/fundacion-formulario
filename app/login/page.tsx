@@ -1,10 +1,8 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-  const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -30,7 +28,8 @@ export default function LoginPage() {
         return;
       }
 
-      router.push("/dashboard/upload");
+      // Full page redirect to ensure the cookie is sent on the new request
+      window.location.href = "/dashboard/upload";
     } catch {
       setError("Error de conexión. Intenta nuevamente.");
       setLoading(false);

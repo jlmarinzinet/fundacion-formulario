@@ -1,4 +1,20 @@
-import { createSession, validateCredentials } from "../../../../lib/auth";
+import { NextResponse } from "next/server";
+import { validateCredentials } from "../../../../lib/auth";
+import crypto from "crypto";
+
+const SESSION_COOKIE = "session_token";
+const SECRET = process.env.AUTH_SECRET ?? "fundacion-default-secret-change-me";
+const TOKEN_TTL = 60 * 60 * 24; // 24 hours
+
+function sign(payload: { user: string; exp: number }): string {
+  const json = JSON.stringify(payload);
+  const data = Buffer.from(json).toString("base64url");
+  const signature = crypto
+    .createHmac("sha256", SECRET)
+    .update(data)
+    .digest("base64url");
+  return `${data}.${signature}`;
+}
 
 export async function POST(request: Request) {
   try {
@@ -9,23 +25,36 @@ export async function POST(request: Request) {
     };
 
     if (!username || !password) {
-      return Response.json(
+      return NextResponse.json(
         { ok: false, error: "Usuario y contraseña son obligatorios." },
         { status: 400 }
       );
     }
 
     if (!validateCredentials(username, password)) {
-      return Response.json(
+      return NextResponse.json(
         { ok: false, error: "Credenciales incorrectas." },
         { status: 401 }
       );
     }
 
-    await createSession(username);
-    return Response.json({ ok: true }, { status: 200 });
+    const token = sign({
+      user: username,
+      exp: Math.floor(Date.now() / 1000) + TOKEN_TTL,
+    });
+
+    const response = NextResponse.json({ ok: true }, { status: 200 });
+    response.cookies.set(SESSION_COOKIE, token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: TOKEN_TTL,
+      path: "/",
+    });
+
+    return response;
   } catch {
-    return Response.json(
+    return NextResponse.json(
       { ok: false, error: "Error al procesar la solicitud." },
       { status: 500 }
     );

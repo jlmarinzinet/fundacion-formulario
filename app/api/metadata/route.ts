@@ -5,8 +5,8 @@ const WEBHOOK_URL =
 const AUTH_HEADER = "fundacion-contenidos2026";
 const AUTH_HEADER_FALLBACK = "fundacion";
 
-/** Timeout for the outgoing metadata call (15 s). */
-const FETCH_TIMEOUT_MS = 15_000;
+/** Timeout for the outgoing metadata call (30 s). */
+const FETCH_TIMEOUT_MS = 30_000;
 
 export const dynamic = "force-dynamic";
 
