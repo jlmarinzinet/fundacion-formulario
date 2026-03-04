@@ -18,7 +18,8 @@ export function middleware(request: NextRequest) {
 
   const token = request.cookies.get(SESSION_COOKIE)?.value;
   if (!token) {
-    const loginUrl = new URL("/login", request.url);
+    const loginUrl = request.nextUrl.clone();
+    loginUrl.pathname = "/login";
     return NextResponse.redirect(loginUrl);
   }
 
