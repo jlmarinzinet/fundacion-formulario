@@ -1,12 +1,16 @@
 import UploadForm from "./UploadForm";
+import LogoutButton from "./LogoutButton";
 
 export default function UploadPage() {
   return (
     <main className="min-h-screen bg-slate-50 p-6 md:p-10">
       <div className="mx-auto w-full max-w-4xl">
-        <h1 className="text-2xl font-semibold text-slate-900">
-          Subir artículo
-        </h1>
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-semibold text-slate-900">
+            Subir artículo
+          </h1>
+          <LogoutButton />
+        </div>
         <p className="mt-2 text-sm text-slate-600">
           Carga un documento y completa los metadatos asociados.
         </p>

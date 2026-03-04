@@ -359,19 +359,9 @@ export default function UploadForm() {
         )}
       </div>
 
-      <div className="rounded-md border border-dashed border-slate-200 bg-slate-50 p-4">
-        <div className="flex items-center justify-between gap-2">
-          <span className="text-sm font-medium text-slate-700">
-            Metadata desde n8n
-          </span>
-          {metadataLoading && (
-            <span className="text-xs text-slate-500">Cargando...</span>
-          )}
-        </div>
-        {metadataError && (
-          <p className="mt-2 text-xs text-rose-600">{metadataError}</p>
-        )}
-      </div>
+      {metadataError && (
+        <p className="text-sm text-rose-600">{metadataError}</p>
+      )}
 
       <div className="grid gap-4 md:grid-cols-2">
         <MultiSelect
