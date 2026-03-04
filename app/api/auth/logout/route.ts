@@ -1,9 +1,11 @@
-import { NextResponse } from "next/server";
-
 const SESSION_COOKIE = "session_token";
 
 export async function POST() {
-  const response = NextResponse.json({ ok: true }, { status: 200 });
-  response.cookies.delete(SESSION_COOKIE);
-  return response;
+  return new Response(JSON.stringify({ ok: true }), {
+    status: 200,
+    headers: {
+      "Content-Type": "application/json",
+      "Set-Cookie": `${SESSION_COOKIE}=; Path=/; HttpOnly; Max-Age=0; SameSite=Lax`,
+    },
+  });
 }

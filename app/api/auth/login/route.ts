@@ -43,16 +43,23 @@ export async function POST(request: Request) {
       exp: Math.floor(Date.now() / 1000) + TOKEN_TTL,
     });
 
-    const response = NextResponse.json({ ok: true }, { status: 200 });
-    response.cookies.set(SESSION_COOKIE, token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      maxAge: TOKEN_TTL,
-      path: "/",
-    });
+    const useSecure = process.env.COOKIE_SECURE === "true";
+    const cookieParts = [
+      `${SESSION_COOKIE}=${token}`,
+      `Path=/`,
+      `HttpOnly`,
+      `Max-Age=${TOKEN_TTL}`,
+      `SameSite=Lax`,
+    ];
+    if (useSecure) cookieParts.push("Secure");
 
-    return response;
+    return new Response(JSON.stringify({ ok: true }), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Set-Cookie": cookieParts.join("; "),
+      },
+    });
   } catch {
     return NextResponse.json(
       { ok: false, error: "Error al procesar la solicitud." },
