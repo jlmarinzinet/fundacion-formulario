@@ -5,7 +5,7 @@ export async function POST() {
     status: 200,
     headers: {
       "Content-Type": "application/json",
-      "Set-Cookie": `${SESSION_COOKIE}=; Path=/; HttpOnly; Max-Age=0; SameSite=Lax`,
+      "Set-Cookie": `${SESSION_COOKIE}=; Path=/fundacionmuyinteresante; HttpOnly; Max-Age=0; SameSite=Lax`,
     },
   });
 }

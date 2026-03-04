@@ -46,7 +46,7 @@ export async function POST(request: Request) {
     const useSecure = process.env.COOKIE_SECURE === "true";
     const cookieParts = [
       `${SESSION_COOKIE}=${token}`,
-      `Path=/`,
+      `Path=/fundacionmuyinteresante`,
       `HttpOnly`,
       `Max-Age=${TOKEN_TTL}`,
       `SameSite=Lax`,

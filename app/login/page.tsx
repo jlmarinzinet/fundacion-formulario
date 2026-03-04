@@ -29,7 +29,7 @@ export default function LoginPage() {
       }
 
       // Full page redirect to ensure the cookie is sent on the new request
-      window.location.href = "/dashboard/upload";
+      window.location.href = "/fundacionmuyinteresante/dashboard/upload";
     } catch {
       setError("Error de conexión. Intenta nuevamente.");
       setLoading(false);
