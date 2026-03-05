@@ -1,14 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { url } from "../../../lib/url";
 
 export default function LogoutButton() {
   const [loading, setLoading] = useState(false);
 
   const handleLogout = async () => {
     setLoading(true);
-    await fetch("/fundacionmuyinteresante/api/auth/logout", { method: "POST" });
-    window.location.href = "/fundacionmuyinteresante/login";
+    await fetch(url("/api/auth/logout"), { method: "POST" });
+    window.location.href = url("/login");
   };
 
   return (
