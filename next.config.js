@@ -6,8 +6,8 @@ const nextConfig = {
   // Next.js defaults to 1 MB which would reject most doc uploads.
   serverExternalPackages: [],
   // Allow large uploads through middleware (default is 10 MB)
-  middlewareClientMaxBodySize: "200mb",
   experimental: {
+    proxyClientMaxBodySize: "200mb",
     serverActions: {
       bodySizeLimit: "50mb",
     },
