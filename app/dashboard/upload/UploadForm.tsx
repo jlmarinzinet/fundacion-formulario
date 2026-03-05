@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { normalizeOptions } from "../../../lib/normalize";
-import { api } from "../../../lib/url";
+import { url } from "../../../lib/url";
 import type {
   MetadataOptions,
   MetadataPayload,
@@ -161,7 +161,7 @@ export default function UploadForm() {
       setMetadataLoading(true);
       setMetadataError(null);
       try {
-        const response = await fetch(api("/api/metadata"), {
+        const response = await fetch(url("/api/metadata"), {
           signal: controller.signal,
         });
         if (!response.ok) {
@@ -292,7 +292,7 @@ export default function UploadForm() {
 
     setSubmitStatus("pending");
     try {
-      const response = await fetch(api("/api/submit"), {
+      const response = await fetch(url("/api/submit"), {
         method: "POST",
         body: formData,
         signal: controller.signal,

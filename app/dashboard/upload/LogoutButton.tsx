@@ -1,15 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { api, nav } from "../../../lib/url";
+import { url } from "../../../lib/url";
 
 export default function LogoutButton() {
   const [loading, setLoading] = useState(false);
 
   const handleLogout = async () => {
     setLoading(true);
-    await fetch(api("/api/auth/logout"), { method: "POST" });
-    window.location.href = nav("/login");
+    await fetch(url("/api/auth/logout"), { method: "POST" });
+    window.location.href = url("/login");
   };
 
   return (

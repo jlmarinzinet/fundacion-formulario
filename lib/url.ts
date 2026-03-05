@@ -2,18 +2,10 @@
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 /**
- * Prefix a path for browser navigation (window.location.href).
- * e.g. nav("/login") → "/fundacionmuyinteresante/login"
+ * Prefix any path with the base path.
+ * Used for both browser navigation and fetch() calls,
+ * since Traefik needs the prefix to route to the correct container.
  */
-export function nav(path: string): string {
+export function url(path: string): string {
   return `${BASE}${path}`;
-}
-
-/**
- * Prefix a path for fetch() calls.
- * Since Traefik strips the base path before forwarding to the container,
- * fetch() calls go directly to "/api/..." without prefix.
- */
-export function api(path: string): string {
-  return path;
 }
