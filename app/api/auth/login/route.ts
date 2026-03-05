@@ -43,11 +43,10 @@ export async function POST(request: Request) {
       exp: Math.floor(Date.now() / 1000) + TOKEN_TTL,
     });
 
-    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "/";
     const useSecure = process.env.COOKIE_SECURE === "true";
     const cookieParts = [
       `${SESSION_COOKIE}=${token}`,
-      `Path=${basePath}`,
+      `Path=/`,
       `HttpOnly`,
       `Max-Age=${TOKEN_TTL}`,
       `SameSite=Lax`,

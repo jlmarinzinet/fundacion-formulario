@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { url } from "../../lib/url";
+import { api, nav } from "../../lib/url";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
@@ -15,7 +15,7 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const response = await fetch(url("/api/auth/login"), {
+      const response = await fetch(api("/api/auth/login"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
@@ -30,7 +30,7 @@ export default function LoginPage() {
       }
 
       // Full page redirect to ensure the cookie is sent on the new request
-      window.location.href = url("/dashboard/upload");
+      window.location.href = nav("/dashboard/upload");
     } catch {
       setError("Error de conexión. Intenta nuevamente.");
       setLoading(false);
